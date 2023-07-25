@@ -7,6 +7,7 @@ import com.interview.airobotics.repo.GuestRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GuestService {
@@ -35,6 +36,13 @@ public class GuestService {
 
         return guestList;
 
+    }
+    public Guest updateGuest(long id,Guest guest){
+       Optional<Guest> guestToUpdate = guestRepository.findById(id);
+       guestToUpdate.orElseThrow(RuntimeException::new);
+       guest.setGuestId(id);
+       guestRepository.save(guest);
+       return guest;
     }
     public void deleteGuest(long id){
         guestRepository.deleteById(id);

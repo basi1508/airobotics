@@ -34,12 +34,18 @@ public class GuestController {
     }
     @RequestMapping(path = "/addGuest",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addGuest(@RequestBody Guest guest){
+    public Guest addGuest(@RequestBody Guest guest){
         guestService.addGuest(guest);
+        return guest;
     }
     @RequestMapping(path="/getGuests", method = RequestMethod.GET)
     public List<Guest> getGuest(){
       return  guestService.getGuests();
+    }
+    @RequestMapping(path="/updateGuest",method = RequestMethod.PUT)
+    public Guest updateGuest(@RequestParam(value ="id", required = true)long id,
+                                @RequestBody Guest guest){
+       return guestService.updateGuest(id,guest);
     }
     @RequestMapping(path = "/deleteGuest")
     public void deleteGeust(@RequestParam(value = "id",required = true) long id){
